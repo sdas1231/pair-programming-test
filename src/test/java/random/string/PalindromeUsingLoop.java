@@ -8,6 +8,7 @@ public class PalindromeUsingLoop {
         }
         return true;
     }
+
     public static void main(String[] args) {
         System.out.println("Palindrome - " + isPalindrome("ANINA".trim().toLowerCase().replace(" ", "")));
         System.out.println("Palindrome - " + isPalindrome("KSHMYA".trim().toLowerCase().replace(" ", "")));

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CarsRepository extends JpaRepository<Car, Long> {
-    List<Car> findByParams(String type, String colour);
+    List<Car> findByColour(String colour);
 }

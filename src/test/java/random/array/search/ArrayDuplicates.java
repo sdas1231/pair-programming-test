@@ -26,8 +26,8 @@ public class ArrayDuplicates {
     private static int[] getDuplicatesByFrequency(int[] arr) {
         final List<Integer> list = Arrays.stream(arr).boxed().collect(Collectors.toList());
         return Arrays.stream(IntStream.of(arr)
-                .filter(n -> Collections.frequency(list, n) > 1)
-                .toArray())
+                        .filter(n -> Collections.frequency(list, n) > 1)
+                        .toArray())
                 .boxed()
                 .collect(Collectors.toSet())
                 .stream().mapToInt(Integer::intValue)

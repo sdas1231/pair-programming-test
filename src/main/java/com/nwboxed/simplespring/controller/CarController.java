@@ -7,9 +7,11 @@ import com.nwboxed.simplespring.service.CarsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -30,8 +32,10 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public ResponseEntity<List<CarResponseDto>> getCars() {
-        return ResponseEntity.ok(carsService.getCars());
+    public ResponseEntity<List<CarResponseDto>> getCars(@Nullable @RequestParam("colour") final String colour) {
+        if (Objects.isNull(colour))
+            return ResponseEntity.ok(carsService.getCars());
+        return ResponseEntity.ok(carsService.getCarByField(colour));
     }
 
     @GetMapping("/cars/{id}")

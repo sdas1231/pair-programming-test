@@ -4,7 +4,7 @@ import com.nwboxed.simplespring.dto.CarResponseDto;
 import com.nwboxed.simplespring.model.Car;
 import com.nwboxed.simplespring.repository.CarsRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -34,15 +34,7 @@ public class CarServiceImpl implements CarsService {
     @Override
     @Cacheable("cars")
     public List<CarResponseDto> getCars() {
-        List<Car> cars = loadCars();
-        return cars.stream().map(car -> new CarResponseDto(car.getId(),
-                car.getType(), car.getColour())).collect(
-                Collectors.collectingAndThen(Collectors.toList(), result -> {
-                    if (result.isEmpty()) throw new ResponseStatusException(
-                            HttpStatus.NOT_FOUND, "entity not found"
-                    );
-                    return result;
-                }));
+        return getCarResponse(loadCars());
     }
 
     @Override
@@ -80,12 +72,25 @@ public class CarServiceImpl implements CarsService {
         return carsRepository.save(car);
     }
 
-    @Cacheable(value = "car", key = "{#param, #value}")
-    public List<Car> getCarByField(String type, String colour) {
-        return carsRepository.findByParams(type, colour);
+    @Override
+    @CacheEvict(value = "cars", allEntries = true)
+    public List<CarResponseDto> getCarByField(@NonNull final String colour) {
+        return getCarResponse(carsRepository.findByColour(colour));
+        //return null;
     }
 
     private List<Car> loadCars() {
         return carsRepository.findAll();
+    }
+
+    private List<CarResponseDto> getCarResponse(List<Car> cars) {
+        return cars.stream().map(car -> new CarResponseDto(car.getId(),
+                car.getType(), car.getColour())).collect(
+                Collectors.collectingAndThen(Collectors.toList(), result -> {
+                    if (result.isEmpty()) throw new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "entity not found"
+                    );
+                    return result;
+                }));
     }
 }

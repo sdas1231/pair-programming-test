@@ -30,17 +30,17 @@ public class CarServiceHelperTest {
     void TC01_itShouldTestAddCarMethod() {
         //Given
         CarDto carTobeSaved = CarDto.builder().
-                type("hatchback").
+                type("BMW").
                 colour("red").build();
 
         Car car = Car.builder().
                 id("441df2d3-198d-46fd-be4b-1f51ca532425").
-                type("hatchback").
+                type("BMW").
                 colour("red").build();
 
         CarResponseDto response = CarResponseDto.builder().
                 id("441df2d3-198d-46fd-be4b-1f51ca532425").
-                type("hatchback").
+                type("BMW").
                 colour("red").build();
 
         //Stub

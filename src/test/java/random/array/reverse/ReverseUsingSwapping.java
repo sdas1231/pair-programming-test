@@ -6,10 +6,10 @@ public class ReverseUsingSwapping {
 
     private static void reverse(final int[] arr, final int size) {
         int t;
-        for (int i = 0; i < size/2; i++) {
-           t = arr[i];
-           arr[i] = arr[size - i - 1];
-           arr[size - i - 1] = t;
+        for (int i = 0; i < size / 2; i++) {
+            t = arr[i];
+            arr[i] = arr[size - i - 1];
+            arr[size - i - 1] = t;
         }
 
         System.out.println("Output Array - " + Arrays.toString(arr));

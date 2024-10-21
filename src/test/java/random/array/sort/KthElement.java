@@ -1,6 +1,5 @@
 package random.array.sort;
 
-import javax.xml.transform.dom.DOMLocator;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -26,7 +25,7 @@ public class KthElement {
         // Max-Heap Priority Queue
         Queue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
-        for (int next: arr) {
+        for (int next : arr) {
             queue.offer(next);
             if (queue.size() > k) queue.poll();
         }
@@ -52,7 +51,7 @@ public class KthElement {
         // Max-Heap Priority Queue
         Queue<Integer> queue = new PriorityQueue<>((a, b) -> b - a);
 
-        for (int next: arr) {
+        for (int next : arr) {
             queue.offer(next);
             if (queue.size() > k) queue.poll();
         }
