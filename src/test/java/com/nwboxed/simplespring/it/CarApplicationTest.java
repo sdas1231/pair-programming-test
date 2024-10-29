@@ -1,4 +1,4 @@
-package com.nwboxed.simplespring;
+package com.nwboxed.simplespring.it;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

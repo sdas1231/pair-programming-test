@@ -1,6 +1,3 @@
-logging.level: 
-  root: INFO
-
 spring:
   application.name: car-application
   jpa:
@@ -19,6 +16,7 @@ endpoints.enabled: true
 
 logging:
   level:
+    root: INFO
     org:
       springframework:
         cache: TRACE
@@ -27,7 +25,12 @@ logging:
           jdbc:
             bind: TRACE
 
-server.port: 3000
 server:
+  port: 3000
   servlet:
     context-path : /cars-api/v1
+
+car-provider:
+  url: http://localhost:3000
+  base-path: /cars-api/v1
+  path: /cars

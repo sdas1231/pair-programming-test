@@ -3,7 +3,12 @@ package com.nwboxed.simplespring.client;
 import com.nwboxed.simplespring.dto.CarResponseDto;
 import com.nwboxed.simplespring.exception.CarException;
 import com.nwboxed.simplespring.exception.ErrorCodes;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,25 +26,31 @@ import java.util.List;
 @Log4j2
 public class CarApiClientImpl implements CarApiClient {
 
+    @Value("${car-provider.url}")
+    private String carProviderUrl;
+
+    @Value("${car-provider.base-path}")
+    private String basePath;
+
+    @Value("${car-provider.path}")
+    private String path;
+
+    @Autowired
+    @Qualifier("carProviderRestClient")
+    private RestTemplate carProviderRestClient;
+
     @Override
     public List<CarResponseDto> getAllCars() {
-        // TODO:
-        /*return asList(
-                new Car("1", "Hatchback", "RED"),
-                new Car("2", "Sedan", "BLACK"),
-                new Car("3", "4x4", "BLACK"),
-                new Car("4", "4x4", "RED"),
-                new Car("5", "SUV", "GREEN"));*/
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-                        "http://localhost:3000/cars-api/v1/cars");
+                carProviderUrl.concat(basePath).concat(path));
 
         try {
 
-            List<CarResponseDto> response = new RestTemplate().exchange(
+            List<CarResponseDto> response = carProviderRestClient.exchange(
                     builder.build().encode().toUri(),
                     HttpMethod.GET,
                     new HttpEntity<>(headers),

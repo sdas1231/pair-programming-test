@@ -1,7 +1,6 @@
 package com.nwboxed.simplespring.apiclient;
 
 import com.nwboxed.simplespring.dto.CarResponseDto;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

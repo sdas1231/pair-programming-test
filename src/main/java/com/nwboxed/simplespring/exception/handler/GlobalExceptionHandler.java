@@ -4,8 +4,6 @@ import com.nwboxed.simplespring.dto.ErrorResponseDto;
 import com.nwboxed.simplespring.exception.CarException;
 import com.nwboxed.simplespring.exception.ErrorCodes;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
