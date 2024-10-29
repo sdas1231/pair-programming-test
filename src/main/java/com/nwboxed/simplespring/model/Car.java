@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static jakarta.persistence.GenerationType.UUID;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,7 +15,6 @@ import static jakarta.persistence.GenerationType.UUID;
 @Builder
 public class Car {
     @Id
-    @GeneratedValue(strategy = UUID)
     String id;
     String type;
     String colour;

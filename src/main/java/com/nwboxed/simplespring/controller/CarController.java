@@ -1,9 +1,12 @@
 package com.nwboxed.simplespring.controller;
 
+import com.nwboxed.simplespring.client.CarApiClient;
+import com.nwboxed.simplespring.dto.CarCountResponseDto;
 import com.nwboxed.simplespring.dto.CarDto;
 import com.nwboxed.simplespring.dto.CarResponseDto;
 import com.nwboxed.simplespring.helper.CarServiceHelper;
 import com.nwboxed.simplespring.service.CarsService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +17,12 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin
 @AllArgsConstructor
 public class CarController {
 
     private CarsService carsService;
     private CarServiceHelper carServiceHelper;
+    private CarApiClient carApiClient;
 
     @GetMapping("")
     public ResponseEntity<String> welcome() {
@@ -27,7 +30,7 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    public ResponseEntity<CarResponseDto> addCar(@RequestBody CarDto car) {
+    public ResponseEntity<CarResponseDto> addCar(@RequestBody @Valid CarDto car) {
         return new ResponseEntity<>(carServiceHelper.addCar(car), HttpStatus.CREATED);
     }
 
@@ -52,5 +55,12 @@ public class CarController {
     @PatchMapping("/cars/{id}")
     public ResponseEntity<CarResponseDto> updateCar(@PathVariable String id, @RequestBody CarDto car) {
         return ResponseEntity.ok(carServiceHelper.UpdateCar(id, car));
+    }
+
+    @GetMapping("/cars/count")
+    public ResponseEntity<CarCountResponseDto> getCarCount(@Nullable @RequestParam("colour") final String colour,
+                                                           @Nullable @RequestParam("type") final String type) {
+
+        return ResponseEntity.ok(carsService.getCarCount(colour, type));
     }
 }

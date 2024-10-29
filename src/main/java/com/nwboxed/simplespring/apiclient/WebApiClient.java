@@ -1,6 +1,7 @@
 package com.nwboxed.simplespring.apiclient;
 
 import com.nwboxed.simplespring.dto.CarResponseDto;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,7 @@ public class WebApiClient {
                 .queryParam("colour", "black");
 
         try {
+
             List<CarResponseDto> response = new RestTemplate().exchange(
                     builder.build().encode().toUri(),
                     HttpMethod.GET,
